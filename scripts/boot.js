@@ -68,11 +68,13 @@ function initHomePage(){
     setTimeout(() => {
       introInstructions.style.opacity = '1';
       introInstructions.style.transform = 'translateY(0)';
+      
+    }, 1500);
 
+    setTimeout(() => {
       const generateButton = document.getElementById("enterSystem");
       generateButton.style.opacity = "1";
       generateButton.style.pointerEvents = "auto";
-      
-    }, 1500);
+    }, 2500);
 }
 

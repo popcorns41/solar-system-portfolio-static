@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
   opacity: 1;
   transition: opacity 0.5s ease;
 }
@@ -76,6 +75,8 @@
   pointer-events: none;
   margin-top: 7rem;
 }
+
+
 
 /* @media (max-width: 600px) {
   #title{

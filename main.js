@@ -1,7 +1,6 @@
 // src/main.js
 
 
-import './scripts/browsing.js';
 import './scripts/dynamicInfoBox.js';
 const params = new URLSearchParams(window.location.search);
 const isDevMode = params.has('dev');

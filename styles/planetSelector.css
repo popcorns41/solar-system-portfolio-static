@@ -35,20 +35,6 @@
   stroke-width: 7px;
 }
 
-.arrow {
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: white;
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.3s ease;
-}
-
-.arrow:hover {
-  transform: scale(1.2);
-}
-
 /* Sweep Animations */
 .sweep-left {
   clip-path: inset(0 0 0 100%);
