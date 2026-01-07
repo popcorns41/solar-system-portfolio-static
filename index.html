@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Metadata -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="A WebGL-powered interactive solar system portfolio built with Three.js." />
+    <meta name="author" content="Oliver Hill" />
+
+    <!-- Open Graph (for social media sharing) -->
+    <meta property="og:title" content="Solar System Portfolio" />
+    <meta property="og:description" content="An immersive portfolio experience with interactive planets and animations." />
+    <!-- <meta property="og:image" content="https://yourdomain.com/preview.png" /> -->
+    <meta property="og:url" content="https://popcorns41.github.io/solar-system-portfolio/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card (optional) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Solar System Portfolio" />
+    <meta name="twitter:description" content="A unique 3D portfolio experience." />
+    <!-- <meta name="twitter:image" content="https://yourdomain.com/preview.png" /> -->
+
+    <title>Solar System Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Solar Portfolio" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/infoSection.css">
+    <link rel="stylesheet" href="/styles/intro.css">
+    <link rel="stylesheet" href="/styles/overlay.css">
+    <link rel="stylesheet" href="/styles/planetSelector.css">
+    <link rel="stylesheet" href="/styles/solarSystem.css">
+    <link rel="stylesheet" href="/styles/tutorialCard.css">
+    <link rel="stylesheet" href="/styles/loadingScreen.css">
+    <link rel="stylesheet" href="/styles/mobileAlert.css">
+
+    <meta name="font-display" content="swap">
+    <script type="module" src="/main.js"></script></head>
+<body>
+    <section id="intro">
+        <div class = "intro-tab">
+            <div id="title">
+                <div id="mask"></div>
+                <h1 id="introText">Welcome to Oliver's Portfolio</h1>
+            </div>
+            <div id = "intro-content">    
+                <p id="instruction">BEng Computer Science - The University of Edinburgh</p>
+                <button class="button-style" id="enterSystem">
+                    begin
+                </button>
+            </div>
+        </div>
+        <div id="solarSystem"><canvas id="threeCanvas"></canvas>
+
+            <div id="hoverCard"></div>
+        </div>
+
+        <div id="planetSelector">
+            <button id="leftArrow" class="arrow">&#8592;</button>
+            <svg id="planetCenter" viewBox='0 0 100 100'>
+                <circle cx='50' cy='50' />
+            </svg>
+            
+            <button id="rightArrow" class="arrow">&#8594;</button>
+        </div>
+        
+    </section>
+    
+    <section id="overlay">
+        <div id="mobileOverlay">
+            <div class="mobile-message-box">
+                <h2>Heads up!</h2>
+                 <hr style="border: none; border-top: 1px solid #ccc; margin: 1rem;" />
+                <p style="margin: 1rem 0;">🪐 The solar system is best viewed on a desktop or larger screen.</p>
+                <p>For mobile, this website is best experienced on the <b>static page</b>.</p>
+                <button style="color: white;" id="continueAnywayBtn">Load Static Page</button>
+            </div>
+        </div>
+        <div id="toast" class="toast">✅ Message sent!</div>
+         <div id="loading-screen">
+            <div class="loading-bar-container">
+                <div id="loading-bar"></div>
+            </div>
+            <p id="loading-text">Loading 0%</p>
+        </div>
+        <div id="infoSection">
+            <div class="info-box" id="infoBoxLeft"></div>
+            <div class="info-box" id="infoBoxRight"></div>
+        </div>
+        <div id="tutorialCard" class="tutorial-card">
+            <div class="card-header">
+            <h2>How to Explore</h2>
+            <span id="closeTutorial" class="close-btn">&times;</span>
+            </div>
+            <ul>
+                <li><strong>Hover Over Planet</strong> - Hightlight section name</li>
+                <li><strong>Scroll</strong> — Zoom in/out</li>
+                <li><strong>Left Click + Drag</strong> — Orbit around planets</li>
+                <li><strong>Right Click + Drag</strong> — Move the camera</li>
+                <li><strong>Click on a planet</strong> - Explore a section :)</li>
+            </ul>
+        </div>
+        <div id="fade-overlay"></div>
+        <canvas id="overlayCanvas"></canvas>
+    </section>
+    
+</body>
+</html>

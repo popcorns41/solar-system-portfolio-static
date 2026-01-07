@@ -1,0 +1,84 @@
+#intro {
+  background: transparent;
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.intro-tab {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;       /* stack title above intro-content */
+  align-items: center;          /* optional: horizontal centering */
+  justify-content: center;      /* optional: vertical centering */
+  top: 48%;
+  position: relative;
+}
+
+#mask {
+  position: absolute;
+  bottom: 0;
+  height: 42%;              /* Covers bottom half */
+  width: 100%;
+  background-color: #161616;
+  z-index: 0;               /* Must be behind #introText (which is z-index: 6) */
+}
+
+#intro-content {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+
+  z-index: 5;
+  opacity: 1;
+  background-color: #161616;
+}
+
+#introText {
+  margin: 0;
+  pointer-events: none;
+  width: 100vw;
+  opacity: 0;
+  transition: opacity 4s ease;
+  z-index: 6;
+  color: white;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+}
+
+#title {
+  position: relative;
+  pointer-events: none;
+  z-index: 10;
+  width: fit-content;     /* or 'auto' depending on your layout */
+  height: fit-content;
+}
+
+#instruction {
+  opacity: 0;
+  transition: opacity 4s ease;
+  user-select: none;
+  caret-color: transparent;
+  margin-top: 2rem;
+}
+
+#enterSystem {
+  opacity: 0;
+  pointer-events: none;
+  margin-top: 7rem;
+}
+
+/* @media (max-width: 600px) {
+  #title{
+    top: 48%
+  }
+} */
