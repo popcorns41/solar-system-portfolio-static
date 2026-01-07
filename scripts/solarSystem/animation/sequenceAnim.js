@@ -4,7 +4,7 @@ export function solarStartSunrise(sun) {
   sunZoomState.active = true;
   sunZoomState.mode = "sunrise";
   sunZoomState.progress = 0;
-  sunZoomState.duration = 8;
+  sunZoomState.duration = 1;
 
   sunZoomState.startY = sun.position.y;
   sunZoomState.targetY = 45;

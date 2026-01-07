@@ -1,6 +1,6 @@
 //script imports
 import {initSetup,postProcessSetup,lightingSetup,initPlanetsToScene,devStateSetup} from '/scripts/solarSystem/core/initCanvasSetup.js';
-import {initSun,initPlanetObjects,bootupPlanetConditions,rePositionSun} from '/scripts/solarSystem/objects/initPlanetObjects.js';
+import {initSun,initPlanetObjects,bootupPlanetConditions,positionSun} from '/scripts/solarSystem/objects/initPlanetObjects.js';
 import {MouseHandler} from '/scripts/solarSystem/input/mouse.js';
 import { initEventListeners } from './solarSystem/input/eventListeners.js';
 import {offsets} from '/scripts/solarSystem/core/const.js';
@@ -24,7 +24,7 @@ export async function initSolarSystem(isDev,isStatic){
 
   initPlanetsToScene(scene,sun,planets);
   if (!(isDev)){
-    rePositionSun(sun);
+    positionSun(sun);
     bootupPlanetConditions(planets);
   }else{
     devStateSetup();

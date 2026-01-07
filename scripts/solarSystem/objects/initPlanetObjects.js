@@ -12,11 +12,11 @@ export function bootupPlanetConditions(planets){
     });
 }
 
-export function rePositionSun(sun){
+export function positionSun(sun){
     sun.scale.set(1.7, 1.7, 1.7);
     //initial y: -50
     //target y: 40
-    sun.position.y=-50;
+    sun.position.y=45;
     sun.position.z=0;
     sun.position.x=0;
 }
