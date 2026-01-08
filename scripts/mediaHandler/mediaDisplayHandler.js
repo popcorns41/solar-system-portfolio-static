@@ -257,7 +257,6 @@ export function pdfResumeSection(box) {
       style="border: none;">
     </iframe>
   `;
-  var fullscreen = false;
   document.getElementById("downloadPDF").addEventListener("click", () => {
     downloadPDF();
   });

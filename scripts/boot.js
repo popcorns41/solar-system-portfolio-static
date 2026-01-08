@@ -23,7 +23,8 @@ function init(isDevMode){
       return;
     }
   }
-
+  const intro = document.getElementById("intro");
+  intro.style.opacity = "1";
   enterStaticPageFunctionality();
 }
 
@@ -75,24 +76,16 @@ function initHomePage(){
 
     document.getElementById('threeCanvas').style.pointerEvents = 'none';
 
-    // Step 1: Show title
-    setTimeout(() => {
-      introText.style.opacity = '1';
-      introText.style.transform = 'translateY(0)';
-    }, 200);
+    introText.style.opacity = '1';
+    introText.style.transform = 'translateY(0)';
 
-    // Step 2: Show instructions later
-    setTimeout(() => {
-      introInstructions.style.opacity = '1';
-      introInstructions.style.transform = 'translateY(0)';
-      
-    }, 1500);
+    introInstructions.style.opacity = '1';
+    introInstructions.style.transform = 'translateY(0)';
 
-    setTimeout(() => {
-      const generateButton = document.getElementById("enterSystem");
-      generateButton.style.opacity = "1";
-      generateButton.style.pointerEvents = "auto";
-    }, 2500);
+    const generateButton = document.getElementById("enterSystem");
+    if (!generateButton) return;
+    generateButton.style.opacity = "1";
+    generateButton.style.pointerEvents = "auto";
 }
 
 // --- Scroll lock helpers ---

@@ -1,8 +1,9 @@
 import {planetData} from './mediaHandler/planetInfoData.js'
+import * as HANDLER from './mediaHandler/mediaDisplayHandler.js'
 
 
 export function initInfoSections() {
-    const infoSection = document.querySelector("#info");
+  const infoSection = document.querySelector("#info");
   if (!infoSection) return;
 
   // Clear anything currently inside
@@ -10,29 +11,40 @@ export function initInfoSections() {
 
   const frag = document.createDocumentFragment();
 
-  for (let i = planetData.length - 1; i >= 0; i--) {
+  for (let index = planetData.length - 1; index >= 0; index--) {
     // legacy entry — skip it
-    if (i === 2) continue;
+    if (index === 2) continue;
 
-    const planet = planetData[i];
+    const info = planetData[index];
 
     const panel = document.createElement("div");
     panel.className = "info-panel";
-    panel.id = `panel-${i}`;
+    panel.id = `panel-${index}`;
 
     panel.innerHTML = `
-        <div style="text-align:center; padding: 2rem;">
-        <h2 style="margin:0 0 0.5rem 0;">
-            ${planet?.title ?? `Item ${i + 1}`}
-        </h2>
-        <p style="margin:0; opacity:0.85;">
-            Panel ${i + 1} of ${planetData.length}
-        </p>
-        </div>
+      <div class="infoSection">
+        <div class="info-box infoBoxLeft" id="infoBoxLeft-${index}"></div>
+        <div class="info-box infoBoxRight" id="infoBoxRight-${index}"></div>
+      </div>
     `;
 
     frag.appendChild(panel);
-    }
 
-    infoSection.appendChild(frag);
+    // Grab the boxes we just created inside this panel
+    const leftBox = panel.querySelector(`#infoBoxLeft-${index}`);
+    const rightBox = panel.querySelector(`#infoBoxRight-${index}`);
+
+    // Populate based on index rules
+    if (index === 0) {
+      HANDLER.contactMeSection(leftBox);
+    } else if (index === 3) {
+      HANDLER.SkillSetList(leftBox);
+      HANDLER.pdfResumeSection(rightBox);
+    } else {
+      HANDLER.planetDataLeftBox(info, leftBox);
+      HANDLER.planetDataRightBox(info, rightBox);
+    }
+  }
+
+  infoSection.appendChild(frag);
 }

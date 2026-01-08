@@ -3,8 +3,14 @@ import emailjs from '@emailjs/browser';
 emailjs.init("ACoKUgfKR7FJkFXTT");
 
 export function emailHandler(live = false) {
-  const form = document.getElementById("contactForm");
-  const button = form.querySelector(".infoButton");
+  var form = null;
+  var button = null;
+  try {
+    form = document.getElementById("contactForm");
+    button = form.querySelector(".infoButton");
+  } catch (e) {
+    return;
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();

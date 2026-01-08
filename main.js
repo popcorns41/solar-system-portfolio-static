@@ -17,6 +17,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const { initBoot } = await import('./scripts/boot.js');
     initBoot(isDevMode);
+
+
 });
 
 
