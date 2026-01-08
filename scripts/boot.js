@@ -1,6 +1,5 @@
 import {preloadAssets} from "./mediaHandler/mediaCache.js";
-
-
+import { initInfoSections } from "./infoSection.js";
 export function initBoot(isDev){
   init(isDev);
 }
@@ -8,38 +7,56 @@ export function initBoot(isDev){
 function init(isDevMode){
     if (!(isDevMode)){
       initHomePage();
+      initInfoSections();
     }else{
       initDevHomePage();
     }
   preloadAssets();
+
+  // 1) Lock scroll by default (intro experience)
+  lockScroll();
+  const hash = window.location.hash; 
+  if (hash) {
+    const target = document.querySelector(hash);
+    if (target && target.classList.contains("info-panel")) {
+      skipIntroAndGoTo(target);
+      return;
+    }
+  }
+
   enterStaticPageFunctionality();
 }
 
-function enterStaticPageFunctionality(){
-  document.getElementById("enterSystem").addEventListener("click", () => {
-    const title = document.getElementById('title');
-    const intro_content = document.getElementById('intro-content');
-    const planetUI = document.getElementById('planetCenter');
+// --- Your button behavior ---
+function enterStaticPageFunctionality() {
+  const btn = document.getElementById("enterSystem");
+  const intro = document.getElementById("intro");
 
-    planetUI.style.pointerEvents = "none";
+  // Lock scrolling immediately (do this once on load)
+  lockScroll();
 
-    title.style.transition = "0.5s opacity ease";
-    intro_content.style.transition = "0.5s opacity ease";
+  btn.addEventListener("click", () => {
+    // Prevent double clicks doing weird stuff
+    btn.disabled = true;
 
-    title.style.opacity = "0";
-    intro_content.style.opacity = "0";
+    // Enable scrolling
+    unlockScroll();
 
-    window.dispatchEvent(new CustomEvent("circularBorder"), { detail: { delay: 0 } });
-    window.dispatchEvent(new CustomEvent("beginPlanetTransform", {
-      detail: { translateY: 41 }
-    }));
+    // Find the first panel (first in DOM order)
+    const firstPanel = document.getElementById("panel-6");
 
-    const startIndex = 6;
-    window.dispatchEvent(new CustomEvent("infoChange",{
-      detail:{index:startIndex}
-    }));
+    if (firstPanel) {
+      // Smooth scroll to the first panel
+      firstPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
-    window.planetIndex = startIndex;
+    // Make it impossible to scroll back: remove the intro section
+    // (wait a moment so scrollIntoView has time to start)
+    setTimeout(() => {
+      if (intro) intro.remove();
+      // Ensure we're still aligned at the top of the first panel after removal
+      if (firstPanel) firstPanel.scrollIntoView({ behavior: "auto", block: "start" });
+    }, 500);
   });
 }
 
@@ -78,3 +95,47 @@ function initHomePage(){
     }, 2500);
 }
 
+// --- Scroll lock helpers ---
+
+function skipIntroAndGoTo(panelEl) {
+  // enable scrolling + remove intro (your desired behavior)
+  unlockScroll();
+
+  const intro = document.getElementById("intro");
+  if (intro) intro.remove();
+
+  // jump (or smooth scroll) to target
+  panelEl.scrollIntoView({ behavior: "auto", block: "start" });
+}
+
+function preventDefault(e) {
+  e.preventDefault();
+}
+
+function preventScrollKeys(e) {
+  // keys that scroll the page
+  const keys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " ", "Spacebar"];
+  if (keys.includes(e.key)) {
+    e.preventDefault();
+  }
+}
+
+function lockScroll() {
+  // stop scrollbars + overscroll bounce
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
+
+  // stop wheel/touch/keys
+  window.addEventListener("wheel", preventDefault, { passive: false });
+  window.addEventListener("touchmove", preventDefault, { passive: false });
+  window.addEventListener("keydown", preventScrollKeys, { passive: false });
+}
+
+function unlockScroll() {
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
+
+  window.removeEventListener("wheel", preventDefault);
+  window.removeEventListener("touchmove", preventDefault);
+  window.removeEventListener("keydown", preventScrollKeys);
+}
