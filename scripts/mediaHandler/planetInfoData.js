@@ -47,7 +47,7 @@ export const planetData = [
     title: "Robotics",
     subtitles: ["Overview","Reflection"],
     paragraphs: [
-      "Working with the University of Edinburgh's maker space and a strong team of peers, we built a robot that plays pool on a half-scale table. The semester-long project combined several engineering disciplines. We divided the robot's systems into key modules: electrical, robotic, computer vision and camera (see<a href='#image2'>Image 2</a>), structural support, and a mobile web app for user input. In a typical use case, the web app shows a real-time view of the pool balls and prompts the user to take a shot. The robot, which we called Pool Pal, then attempts to replicate that shot. At the end of the project, our robot could successfully pot pool balls at an impressive accuracy (see<a href='#video1'>Video 1</a>). I was responsible for designing, testing, and assembling the robotic system, which consisted of two main components: the gantry and the striking mechanism.",
+      "Working with the University of Edinburgh's maker space and a strong team of peers, we built a robot that plays pool on a half-scale table. The semester-long project combined several engineering disciplines. We divided the robot's systems into key modules: electrical, robotic, computer vision and camera (see Image 2), structural support, and a mobile web app for user input. In a typical use case, the web app shows a real-time view of the pool balls and prompts the user to take a shot. The robot, which we called Pool Pal, then attempts to replicate that shot. At the end of the project, our robot could successfully pot pool balls at an impressive accuracy (see Video 1). I was responsible for designing, testing, and assembling the robotic system, which consisted of two main components: the gantry and the striking mechanism.",
       "Our design was well-received by the judges: out of 16 teams, we won the <b>Best Technical Skills Project award</b> and placed <b>second overall</b> at a university-hosted competition. Teamwork was critical to our success. With members collaborating across multiple systems, clear and consistent communication was essential. One example was calibrating the gantry system's sensors, which helped manage the loss of timing belt tension over time. Solving this problem required close collaboration between the electrical lead and me, as we combined our efforts to tackle the issue effectively."
     ],
     imageURLs: ["./info_images/poolpallRobot.jpeg", "./info_images/cv_model.jpeg","./info_image/poolPalApp.png"],
@@ -95,7 +95,7 @@ export const planetData = [
     ],
     imageURLs: ["./info_images/stepHandShake.jpg", "./info_images/poolPalGroup.jpg"],
     imageKeys: ["stepHandShake", "ppGroup"],
-    imageDescription: ["Award ceremony for internship programme (further details see<a href='#' class='planet-link' data-index='1'>here</a>)","Group photo during robotics fair (further details see <a href='#' class='planet-link' data-index='3'>here</a>)"],
+    imageDescription: ["Award ceremony for internship programme (further details see<a href='#panel-1'>here</a>)","Group photo during robotics fair (further details see <a href='#panel-3'>here</a>)"],
     videos:[]
   }
 ];
