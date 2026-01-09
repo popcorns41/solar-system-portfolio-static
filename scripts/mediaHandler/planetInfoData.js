@@ -56,8 +56,8 @@ export const planetData = [
     videos:[
       {
         key: 'poolpalShot',
-        type: 'video',
-        url: './info_images/poolpal_shot.mp4',
+        type: 'youtube',
+        url: 'https://youtube.com/shorts/DzKbvQ7KY5g?si=_X_gQl-VDSMWCPVM',
         description: 'Pool Pal in operation'
       }
     ]

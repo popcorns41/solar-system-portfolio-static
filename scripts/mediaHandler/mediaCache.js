@@ -14,9 +14,7 @@ const assets = {
       { id: 'stepProgramme', url: './info_images/stepProgramme.jpeg' },
       { id: 'salexLTD', url: './info_images/SalexLTD.jpeg' },
     ],
-    videos: [
-      { id: 'poolpalShot', url: './info_images/poolpal_shot.mp4' },
-    ],
+    videos: [],
     pdfs: [
       { id: 'cvPDF', url: './pdfs/ohResume.pdf#view=Fit' },
     ]

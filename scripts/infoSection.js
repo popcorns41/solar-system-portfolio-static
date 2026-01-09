@@ -12,14 +12,13 @@ export function initInfoSections() {
   const frag = document.createDocumentFragment();
 
   for (let index = planetData.length - 1; index >= 0; index--) {
-    // legacy entry — skip it
-    if (index === 2) continue;
-
     const info = planetData[index];
 
     const panel = document.createElement("div");
     panel.className = "info-panel";
     panel.id = `panel-${index}`;
+
+
 
     panel.innerHTML = `
       <div class="infoSection">
@@ -37,7 +36,8 @@ export function initInfoSections() {
     // Populate based on index rules
     if (index === 0) {
       HANDLER.contactMeSection(leftBox);
-    } else if (index === 3) {
+      rightBox.style.display = "none";
+    } else if (index === 2) {
       HANDLER.SkillSetList(leftBox);
       HANDLER.pdfResumeSection(rightBox);
     } else {

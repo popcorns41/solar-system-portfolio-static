@@ -4,18 +4,23 @@ export function initBoot(isDev){
   init(isDev);
 }
 
-function init(isDevMode){
-    if (!(isDevMode)){
-      initHomePage();
-      initInfoSections();
-    }else{
-      initDevHomePage();
-    }
-  preloadAssets();
+async function init(isDevMode) {
+  // 1) Preload FIRST, block everything else
+  await preloadAssets();
 
-  // 1) Lock scroll by default (intro experience)
+  // 2) Build DOM only after assets exist
+  if (!isDevMode) {
+    initHomePage();
+    initInfoSections();
+  } else {
+    initDevHomePage();
+  }
+
+  // 3) Lock scroll by default (intro experience)
   lockScroll();
-  const hash = window.location.hash; 
+
+  // 4) Handle deep links AFTER panels exist
+  const hash = window.location.hash;
   if (hash) {
     const target = document.querySelector(hash);
     if (target && target.classList.contains("info-panel")) {
@@ -23,8 +28,11 @@ function init(isDevMode){
       return;
     }
   }
+
+  // 5) Normal intro flow
   const intro = document.getElementById("intro");
-  intro.style.opacity = "1";
+  if (intro) intro.style.opacity = "1";
+
   enterStaticPageFunctionality();
 }
 
