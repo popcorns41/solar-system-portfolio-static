@@ -2,15 +2,14 @@ import emailjs from '@emailjs/browser';
 
 emailjs.init("ACoKUgfKR7FJkFXTT");
 
-export function emailHandler(live = false) {
-  var form = null;
-  var button = null;
-  try {
-    form = document.getElementById("contactForm");
-    button = form.querySelector(".infoButton");
-  } catch (e) {
-    return;
-  }
+export function emailHandler(container, live = false) {
+  const form = container.querySelector("#contactForm");
+  const button = form?.querySelector(".infoButton");
+  if (!form || !button) return;
+
+  // Prevent double-binding if you re-render the section
+  if (form.dataset.bound === "true") return;
+  form.dataset.bound = "true";
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -30,12 +29,7 @@ export function emailHandler(live = false) {
     }
 
     try {
-      // Use sendForm with explicit form element
-      await emailjs.sendForm(
-        "service_3dr8znx",
-        "template_wpa42ci",
-        form
-      );
+      await emailjs.sendForm("service_3dr8znx", "template_wpa42ci", form);
       showToast("✅ Message sent! I will get back to you soon.");
       form.reset();
     } catch (error) {

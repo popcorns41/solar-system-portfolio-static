@@ -239,7 +239,7 @@ export function contactMeSection(box) {
 
     <hr style="border: none; border-top: 1px solid #ccc; margin: 2rem 0;" />
 
-    <form id="contactForm" name="contact_form" style="display: flex; flex-direction: column; gap: 1rem;">
+    <form id="contactForm" name="contact_form" style="display: flex; flex-direction: column; gap: 1rem;" method="post" action="#">
   <input 
     type="text" 
     name="user_name" 
@@ -270,7 +270,7 @@ export function contactMeSection(box) {
 </form>
   `;
 
-  emailHandler(true);
+  emailHandler(box, true);
 }
 
 export function SkillSetList(box) {
