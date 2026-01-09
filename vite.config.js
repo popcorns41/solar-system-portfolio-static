@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: './',
   publicDir: 'public',
-  base: '/solar-system-portfolio/',
+  base: '/solar-system-portfolio-static/',
   server: {
     host: true,
     open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env)
