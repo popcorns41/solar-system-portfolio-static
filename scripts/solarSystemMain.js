@@ -1,5 +1,5 @@
 //script imports
-import {initSetup,postProcessSetup,lightingSetup,initPlanetsToScene,devStateSetup} from '/scripts/solarSystem/core/initCanvasSetup.js';
+import {initSetup,postProcessSetup,lightingSetup,initPlanetsToScene} from '/scripts/solarSystem/core/initCanvasSetup.js';
 import {initSun,positionSun} from '/scripts/solarSystem/objects/initPlanetObjects.js';
 import { initEventListeners } from './solarSystem/input/eventListeners.js';
 import {renderLoop} from '/scripts/solarSystem/animation/animate.js'
@@ -19,8 +19,6 @@ export async function initSolarSystem(isDev){
   initPlanetsToScene(scene,sun,planets);
   if (!(isDev)){
     positionSun(sun);
-  }else{
-    devStateSetup();
   }
 
   //attach click events to canvas

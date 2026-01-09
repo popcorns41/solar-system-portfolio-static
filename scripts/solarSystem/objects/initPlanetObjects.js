@@ -1,6 +1,5 @@
 import sunTexture from '/images/sun.jpg';
 import * as THREE from 'three';
-import poolBallTexture from '/images/8ball.jpg';
 
 
 const loadTexture = new THREE.TextureLoader();
