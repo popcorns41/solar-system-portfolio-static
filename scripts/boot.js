@@ -41,34 +41,78 @@ function enterStaticPageFunctionality() {
   const btn = document.getElementById("enterSystem");
   const intro = document.getElementById("intro");
 
-  // Lock scrolling immediately (do this once on load)
   lockScroll();
 
   btn.addEventListener("click", () => {
-    // Prevent double clicks doing weird stuff
     btn.disabled = true;
 
-    // Enable scrolling
+    const firstPanel = document.getElementById("panel-6");
+    if (!firstPanel) return;
+
     unlockScroll();
 
-    // Find the first panel (first in DOM order)
-    const firstPanel = document.getElementById("panel-6");
+    const finishIntro = () => {
+      intro?.remove();
 
-    if (firstPanel) {
-      // Smooth scroll to the first panel
-      firstPanel.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+      requestAnimationFrame(() => {
+        firstPanel.scrollIntoView({
+          behavior: "auto",
+          block: "start"
+        });
+      });
+    };
 
-    // Make it impossible to scroll back: remove the intro section
-    // (wait a moment so scrollIntoView has time to start)
-    setTimeout(() => {
-      if (intro) intro.remove();
-      // Ensure we're still aligned at the top of the first panel after removal
-      if (firstPanel) firstPanel.scrollIntoView({ behavior: "auto", block: "start" });
-    }, 700);
+    waitForSmoothScrollToFinish(firstPanel, finishIntro);
+
+    firstPanel.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   });
 }
 
+function waitForSmoothScrollToFinish(targetElement, callback) {
+  let finished = false;
+
+  const done = () => {
+    if (finished) return;
+    finished = true;
+
+    window.removeEventListener("scrollend", done);
+    callback();
+  };
+
+  // Browser-level scroll completion event
+  window.addEventListener("scrollend", done, { once: true });
+
+  // Fallback for browsers where scrollend is unreliable
+  waitUntilElementAtTop(targetElement, done);
+}
+
+//fallback 
+function waitUntilElementAtTop(element, callback) {
+  const tolerance = 2;
+  let stableFrames = 0;
+
+  function check() {
+    const rect = element.getBoundingClientRect();
+
+    if (Math.abs(rect.top) <= tolerance) {
+      stableFrames++;
+    } else {
+      stableFrames = 0;
+    }
+
+    if (stableFrames >= 5) {
+      callback();
+      return;
+    }
+
+    requestAnimationFrame(check);
+  }
+
+  requestAnimationFrame(check);
+}
 
 function initDevHomePage(){
   const intro_content = document.getElementById('intro-content');
