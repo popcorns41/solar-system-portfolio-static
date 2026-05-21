@@ -60,7 +60,7 @@ export function planetDataRightBox(info, rightBox) {
   // IMAGES
   (info.imageKeys || []).forEach((key, index) => {
     const wrapper = document.createElement("div");
-    wrapper.id = `image${index + 1}`;
+    wrapper.id = `${info.title.replace(/\s+/g, '-').toLowerCase()}-image${index + 1}`;
     wrapper.style.marginBottom = "1.5rem";
 
     let img = assetCache.get(key)?.cloneNode(true);
@@ -94,7 +94,7 @@ export function planetDataRightBox(info, rightBox) {
   // VIDEOS
   (info.videos || []).forEach((video, index) => {
     const wrapper = document.createElement("div");
-    wrapper.id = `video${index + 1}`;
+    wrapper.id = `${info.title.replace(/\s+/g, '-').toLowerCase()}-video${index + 1}`;
     wrapper.style.marginBottom = "1.5rem";
 
     let element;

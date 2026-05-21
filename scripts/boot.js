@@ -36,7 +36,7 @@ async function init(isDevMode) {
   enterStaticPageFunctionality();
 }
 
-// --- Your button behavior ---
+// --- button behavior ---
 function enterStaticPageFunctionality() {
   const btn = document.getElementById("enterSystem");
   const intro = document.getElementById("intro");
@@ -65,7 +65,7 @@ function enterStaticPageFunctionality() {
       if (intro) intro.remove();
       // Ensure we're still aligned at the top of the first panel after removal
       if (firstPanel) firstPanel.scrollIntoView({ behavior: "auto", block: "start" });
-    }, 500);
+    }, 700);
   });
 }
 
