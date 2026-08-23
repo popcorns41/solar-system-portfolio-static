@@ -1,25 +1,30 @@
-import path from 'path';
-
-import { defineConfig } from 'vite';
+import path from "path";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  root: './',
-  publicDir: 'public',
-  base: '/',
+  root: "./",
+  publicDir: "public",
+  base: "/",
+
   server: {
     host: true,
-    open: !('SANDBOX_URL' in process.env || 'CODESANDBOX_HOST' in process.env)
+    open: !(
+      "SANDBOX_URL" in process.env ||
+      "CODESANDBOX_HOST" in process.env
+    )
   },
+
   resolve: {
     alias: {
-      '@model': path.resolve(__dirname, 'modelLoader'),
-      '@solar': path.resolve(__dirname, 'solarSystem'),
+      "@model": path.resolve(__dirname, "modelLoader"),
+      "@solar": path.resolve(__dirname, "solarSystem"),
     }
   },
+
   build: {
-    target: 'esnext',
-    outDir: 'docs',
+    target: "esnext",
+    outDir: "docs",
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: true
   }
 });
