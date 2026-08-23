@@ -1,14 +1,28 @@
-import {preloadAssets} from "./mediaHandler/mediaCache.js";
 import { initInfoSections } from "./infoSection.js";
 export function initBoot(isDev){
   init(isDev);
 }
 
 async function init(isDevMode) {
-  // 1) Preload FIRST, block everything else
-  await preloadAssets();
+  lockScroll();
 
-  // 2) Build DOM only after assets exist
+  const loadingText = document.getElementById("loadingText");
+
+  if (loadingText) {
+    loadingText.textContent = "loading portfolio";
+  }
+
+  /*
+   * Only block initial startup on the Sun.
+   *
+   * Images, video and the PDF are no longer part
+   * of the critical loading path.
+   */
+  await waitForSun();
+
+  /*
+   * Build the page once the intro asset is ready.
+   */
   if (!isDevMode) {
     initHomePage();
     initInfoSections();
@@ -16,24 +30,37 @@ async function init(isDevMode) {
     initDevHomePage();
   }
 
-  // 3) Lock scroll by default (intro experience)
-  lockScroll();
-
-  // 4) Handle deep links AFTER panels exist
+  /*
+   * Handle direct links after the panels exist.
+   */
   const hash = window.location.hash;
+
   if (hash) {
     const target = document.querySelector(hash);
+
     if (target && target.classList.contains("info-panel")) {
+      await finishLoadingScreen();
+
       skipIntroAndGoTo(target);
       return;
     }
   }
 
-  // 5) Normal intro flow
+  /*
+   * Normal intro.
+   */
   const intro = document.getElementById("intro");
-  if (intro) intro.style.opacity = "1";
+
+  if (intro) {
+    intro.style.opacity = "1";
+  }
 
   enterStaticPageFunctionality();
+
+  /*
+   * Everything required for the intro is now ready.
+   */
+  await finishLoadingScreen();
 }
 
 // --- button behavior ---
@@ -183,4 +210,57 @@ function unlockScroll() {
   window.removeEventListener("wheel", preventDefault);
   window.removeEventListener("touchmove", preventDefault);
   window.removeEventListener("keydown", preventScrollKeys);
+}
+
+function waitForSun() {
+  // Sun might already have loaded before boot.js reached this point
+  if (window.__sunReady) {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve) => {
+    window.addEventListener(
+      "sunLoaded",
+      () => {
+        resolve();
+      },
+      { once: true }
+    );
+  });
+}
+
+function finishLoadingScreen() {
+  return new Promise((resolve) => {
+    const loadingScreen = document.getElementById("loadingScreen");
+
+    if (!loadingScreen) {
+      resolve();
+      return;
+    }
+
+    // Give the browser a couple frames to actually paint
+    // the completed page before uncovering it.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        loadingScreen.classList.add("loaded");
+
+        loadingScreen.addEventListener(
+          "transitionend",
+          () => {
+            loadingScreen.remove();
+            resolve();
+          },
+          { once: true }
+        );
+      });
+    });
+  });
+}
+
+function updateLoadingProgress(progress) {
+  const loadingProgress = document.getElementById("loadingProgress");
+
+  if (!loadingProgress) return;
+
+  loadingProgress.textContent = `${progress}%`;
 }

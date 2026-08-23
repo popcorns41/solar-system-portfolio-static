@@ -1,4 +1,3 @@
-import { assetCache } from './mediaCache';
 import { languages,platforms,roboticsItems } from './iconDirectories';
 import { emailHandler } from './emailHandler';
 
@@ -55,149 +54,250 @@ function isYouTubeUrl(url) {
 
 export function planetDataRightBox(info, rightBox) {
   rightBox.style.overflowY = "auto";
-  rightBox.innerHTML = ""; // Clear previous content
+  rightBox.innerHTML = "";
 
-  // IMAGES
-  (info.imageKeys || []).forEach((key, index) => {
+  const images = info.imageURLs || [];
+  const videos = info.videos || [];
+
+  /*
+   * IMAGES
+   */
+  images.forEach((url, index) => {
     const wrapper = document.createElement("div");
-    wrapper.id = `${info.title.replace(/\s+/g, '-').toLowerCase()}-image${index + 1}`;
+
+    wrapper.id =
+      `${info.title
+        .replace(/\s+/g, "-")
+        .toLowerCase()}-image${index + 1}`;
+
     wrapper.style.marginBottom = "1.5rem";
 
-    let img = assetCache.get(key)?.cloneNode(true);
+    const img = new Image();
 
-    // Fallback if not in cache
-    if (!img) {
-      img = new Image();
-      img.src = info.imageURLs?.[index] || "";
-    }
+    /*
+     * Let the browser decide when this image
+     * is close enough to the viewport to fetch.
+     */
+    img.loading = "lazy";
+    img.decoding = "async";
 
+    img.src = url;
     img.alt = `${info.title} Image ${index + 1}`;
+
     img.style.width = "100%";
     img.style.borderRadius = "10px";
+
     wrapper.appendChild(img);
 
     const caption = document.createElement("p");
+
     caption.style.margin = "2rem 0";
     caption.style.fontSize = "0.9rem";
-    caption.innerHTML = `Image ${index + 1}: ${info.imageDescription?.[index] || ""}`;
+
+    caption.innerHTML =
+      `Image ${index + 1}: ${
+        info.imageDescription?.[index] || ""
+      }`;
+
     wrapper.appendChild(caption);
 
-    const hr = document.createElement("hr");
-    hr.style.border = "none";
-    hr.style.borderTop = "1px solid #ccc";
-    hr.style.margin = "0.5rem 0";
-    wrapper.appendChild(hr);
+    /*
+     * Only add a divider if another piece of
+     * media follows this item.
+     */
+    const hasMoreImages =
+      index < images.length - 1;
+
+    const hasVideos =
+      videos.length > 0;
+
+    if (hasMoreImages || hasVideos) {
+      appendDivider(wrapper);
+    }
 
     rightBox.appendChild(wrapper);
   });
 
-  // VIDEOS
-  (info.videos || []).forEach((video, index) => {
+  /*
+   * VIDEOS
+   */
+  videos.forEach((video, index) => {
     const wrapper = document.createElement("div");
-    wrapper.id = `${info.title.replace(/\s+/g, '-').toLowerCase()}-video${index + 1}`;
-    wrapper.style.marginBottom = "1.5rem";
 
-    let element;
+    wrapper.id =
+      `${info.title
+        .replace(/\s+/g, "-")
+        .toLowerCase()}-video${index + 1}`;
+
+    wrapper.style.marginBottom = "1.5rem";
 
     const url = video.url || "";
 
-    // Treat as YouTube if explicitly typed OR if the url is a YouTube link
-    const isYouTube = video.type === "youtube" || isYouTubeUrl(url);
+    const isYouTube =
+      video.type === "youtube" ||
+      isYouTubeUrl(url);
 
+    let element;
+
+    /*
+     * YouTube
+     */
     if (isYouTube) {
-      const embedUrl = toYouTubeEmbedUrl(url);
+      const embedUrl =
+        toYouTubeEmbedUrl(url);
 
-      // Add a couple safe params; autoplay usually won’t work unless muted + user gesture
-      const src = `${embedUrl}?rel=0&modestbranding=1`;
+      element =
+        document.createElement("iframe");
 
-      element = document.createElement("iframe");
-      element.src = src;
+      element.src =
+        `${embedUrl}?rel=0&modestbranding=1`;
+
       element.width = "100%";
       element.height = "445px";
+
       element.style.border = "none";
       element.style.overflow = "hidden";
       element.style.borderRadius = "10px";
 
-      element.setAttribute("loading", "lazy");
-      element.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-      element.setAttribute("allowfullscreen", "true");
+      element.loading = "lazy";
+
+      element.setAttribute(
+        "referrerpolicy",
+        "strict-origin-when-cross-origin"
+      );
+
+      element.setAttribute(
+        "allowfullscreen",
+        "true"
+      );
+
       element.setAttribute(
         "allow",
         "autoplay; encrypted-media; picture-in-picture"
       );
+    }
 
-      // If embedding is denied, user still gets a way out
-      element.addEventListener("error", () => {
-        wrapper.innerHTML = `
-          <p style="margin:0 0 0.5rem 0;">
-            This video can’t be embedded here (YouTube “frame denied”). 
-            <a href="${url}" target="_blank" rel="noopener noreferrer">Open it on YouTube</a>.
-          </p>
-        `;
-      });
-    } else if (video.type === "iframe") {
-      // IMPORTANT: "frame denied" can happen for arbitrary sites too. Nothing we can do except open in new tab.
-      element = document.createElement("iframe");
+    /*
+     * Other embedded content
+     */
+    else if (video.type === "iframe") {
+      element =
+        document.createElement("iframe");
+
       element.src = url;
+
       element.width = "100%";
       element.height = "445px";
+
       element.style.border = "none";
       element.style.overflow = "hidden";
       element.style.borderRadius = "10px";
 
-      element.setAttribute("loading", "lazy");
-      element.setAttribute("scrolling", "no");
-      element.setAttribute("frameborder", "0");
-      element.setAttribute("allowfullscreen", "true");
-      element.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      element.loading = "lazy";
+
+      element.setAttribute(
+        "scrolling",
+        "no"
+      );
+
+      element.setAttribute(
+        "frameborder",
+        "0"
+      );
+
+      element.setAttribute(
+        "allowfullscreen",
+        "true"
+      );
+
+      element.setAttribute(
+        "referrerpolicy",
+        "strict-origin-when-cross-origin"
+      );
+
       element.setAttribute(
         "allow",
         "autoplay; encrypted-media; picture-in-picture"
       );
-    } else {
-      // Local MP4 / cached video element
-      element = assetCache.get(video.key)?.cloneNode(true);
+    }
 
-      if (!element) {
-        element = document.createElement("video");
-        const source = document.createElement("source");
-        source.src = url;
-        source.type = "video/mp4";
-        element.appendChild(source);
-        element.preload = "metadata"; // less aggressive than "auto"
-      }
+    /*
+     * Local video
+     */
+    else {
+      element =
+        document.createElement("video");
 
       element.controls = true;
+
+      /*
+       * Do NOT download the complete video
+       * when the portfolio boots.
+       */
+      element.preload = "metadata";
+
+      if (video.poster) {
+        element.poster = video.poster;
+      }
+
       element.style.width = "100%";
       element.style.borderRadius = "10px";
+
+      const source =
+        document.createElement("source");
+
+      source.src = url;
+      source.type =
+        video.mimeType || "video/mp4";
+
+      element.appendChild(source);
     }
 
     wrapper.appendChild(element);
 
-    const caption = document.createElement("p");
+    const caption =
+      document.createElement("p");
+
     caption.style.margin = "0.5rem 0";
     caption.style.fontSize = "0.9rem";
-    caption.innerHTML = `Video ${index + 1}: ${video.description || ""}`;
+
+    caption.innerHTML =
+      `Video ${index + 1}: ${
+        video.description || ""
+      }`;
+
     wrapper.appendChild(caption);
 
-    // Helpful link fallback for iframe-types that might be blocked
-    if (isYouTube || video.type === "iframe") {
-      const link = document.createElement("a");
+    /*
+     * Backup link for external embeds.
+     */
+    if (
+      isYouTube ||
+      video.type === "iframe"
+    ) {
+      const link =
+        document.createElement("a");
+
       link.href = url;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      link.textContent = "Open video in a new tab";
-      link.style.display = "inline-block";
-      link.style.marginBottom = "0.75rem";
+      link.textContent =
+        "Open video in a new tab";
+
+      link.style.display =
+        "inline-block";
+
+      link.style.marginBottom =
+        "0.75rem";
+
       wrapper.appendChild(link);
     }
 
-    if (index < (info.videos?.length || 0) - 1) {
-      const hr = document.createElement("hr");
-      hr.style.border = "none";
-      hr.style.borderTop = "1px solid #ccc";
-      hr.style.marginTop = "1rem";
-      wrapper.appendChild(hr);
+    /*
+     * No divider after final item.
+     */
+    if (index < videos.length - 1) {
+      appendDivider(wrapper);
     }
 
     rightBox.appendChild(wrapper);
@@ -320,55 +420,135 @@ export function SkillSetList(box) {
 }
 
 export function pdfResumeSection(box) {
-  const pdfURL = assetCache.get("cvPDF");
-
-  if (!pdfURL) {
-    console.error("PDF not preloaded or missing from assetCache.");
-    box.innerHTML = `<p>Failed to load PDF resume. Please try again later.</p>`;
-    return;
-  }
+  const pdfURL =
+    "./pdfs/ohResume.pdf#view=Fit";
 
   box.style.overflowY = "hidden";
+
   box.innerHTML = `
     <div class="top-bar">
+
       <h2>PDF Resume</h2>
+
       <div class="tooltip-container">
-        <button class="downloadPDF download-button" type="button">
+
+        <button
+          class="downloadPDF download-button"
+          type="button"
+        >
           <i class="fa-solid fa-download"></i>
         </button>
-        <div class="tooltip">Download PDF</div>
+
+        <div class="tooltip">
+          Download PDF
+        </div>
+
       </div>
     </div>
-    <hr style="border: none; border-top: 1px solid #ccc; margin: 1rem 0;" />
-    <iframe 
+
+    <hr
+      style="
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 1rem 0;
+      "
+    />
+
+    <iframe
       class="resumeFrame"
-      src="${pdfURL}" 
-      width="100%" 
-      height="100%" 
-      allowfullscreen
-      style="border: none;">
+      data-src="${pdfURL}"
+      width="100%"
+      height="100%"
+      style="border: none;"
+      title="Oliver Hill Resume"
+    >
     </iframe>
   `;
 
-  const btn = box.querySelector(".downloadPDF");
-  if (!btn) {
-    console.error("Download button not found inside pdfResumeSection box.");
-    return;
+  const frame =
+    box.querySelector(".resumeFrame");
+
+  const btn =
+    box.querySelector(".downloadPDF");
+
+  if (frame) {
+    deferIframeLoad(frame);
   }
 
-  btn.addEventListener("click", downloadPDF);
+  if (btn) {
+    btn.addEventListener(
+      "click",
+      () => downloadPDF(pdfURL)
+    );
+  }
 }
 
-function downloadPDF() {
-  const pdfURL = assetCache.get('cvPDF');
-  if (!pdfURL) {
-    console.error("PDF not preloaded or missing from assetCache.");
+function downloadPDF(pdfURL) {
+  const downloadURL =
+    pdfURL.split("#")[0];
+
+  const link =
+    document.createElement("a");
+
+  link.href = downloadURL;
+
+  link.download =
+    "oliverHillResume.pdf";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+}
+
+function appendDivider(parent) {
+  const hr = document.createElement("hr");
+
+  hr.style.border = "none";
+  hr.style.borderTop =
+    "1px solid #ccc";
+
+  hr.style.margin =
+    "0.5rem 0";
+
+  parent.appendChild(hr);
+}
+
+function deferIframeLoad(frame) {
+  const src = frame.dataset.src;
+
+  if (!src) return;
+
+  /*
+   * Older browser fallback.
+   */
+  if (!("IntersectionObserver" in window)) {
+    frame.src = src;
     return;
   }
-  const link = document.createElement('a');
-  link.href = pdfURL;
-  link.download = 'oliverHillResume.pdf';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+
+  const observer =
+    new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        frame.src = src;
+
+        observer.disconnect();
+      },
+      {
+        /*
+         * Start loading shortly BEFORE
+         * the résumé actually appears.
+         */
+        rootMargin: "700px 0px"
+      }
+    );
+
+  observer.observe(frame);
 }
