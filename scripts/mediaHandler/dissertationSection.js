@@ -43,6 +43,7 @@ export function createDissertationSection() {
     heading: 'PDF Dissertation',
     title: 'Oliver Hill Dissertation: Motion Smoothing for Assistive Leader-Follower Robotic Arms',
     filename: 'oliverHillDissertation.pdf',
+    onDemand: true,
   });
   return panel;
 }

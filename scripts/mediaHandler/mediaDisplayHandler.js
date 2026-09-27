@@ -1,3 +1,5 @@
+import { imageManifest } from './imageManifest.js';
+import { icon, loadSkillIconsNear } from './uiIcons.js';
 import { languages,platforms,roboticsItems } from './iconDirectories';
 import { emailHandler } from './emailHandler';
 
@@ -81,7 +83,16 @@ export function planetDataRightBox(info, rightBox) {
     img.loading = "lazy";
     img.decoding = "async";
 
-    img.src = url;
+    const asset = imageManifest[url];
+    if (asset) {
+      img.width = asset.width;
+      img.height = asset.height;
+      img.srcset = asset.variants.map(v => `${v.url} ${v.width}w`).join(', ');
+      img.sizes = '(max-width: 740px) calc(100vw - 80px), (max-width: 900px) 650px, (max-width: 1440px) 45vw, 660px';
+      img.src = asset.variants[0].url;
+    } else {
+      img.src = url;
+    }
     img.alt = `${info.title} Image ${index + 1}`;
 
     img.style.width = "100%";
@@ -153,7 +164,7 @@ export function planetDataRightBox(info, rightBox) {
         `${embedUrl}?rel=0&modestbranding=1`;
 
       element.width = "100%";
-      element.height = "445px";
+
 
       element.style.border = "none";
       element.style.overflow = "hidden";
@@ -187,7 +198,7 @@ export function planetDataRightBox(info, rightBox) {
       element.src = url;
 
       element.width = "100%";
-      element.height = "445px";
+
 
       element.style.border = "none";
       element.style.overflow = "hidden";
@@ -253,6 +264,10 @@ export function planetDataRightBox(info, rightBox) {
       element.appendChild(source);
     }
 
+    element.classList.add('media-video');
+    if (isYouTube && url.includes('/shorts/')) element.classList.add('media-video--portrait');
+    else if (video.type === 'iframe') element.classList.add('media-video--social');
+    if (element.tagName === 'IFRAME') element.title = video.description || `${info.title} video ${index + 1}`;
     wrapper.appendChild(element);
 
     const caption =
@@ -326,13 +341,13 @@ export function contactMeSection(box) {
     <hr style="border: none; border-top: 1px solid #ccc; margin-top: 1rem; padding-bottom: 2rem" />
     <div class="contact-icons" style="display: flex; justify-content: center; gap: 3rem; margin-bottom: 2rem;">
       <div style="text-align: center;">
-        <a href="https://www.linkedin.com/in/oliver-hill-7143b3110/" id="linkedin-icon" class="contact-icon" target="_blank" rel="noopener noreferrer" style="color: white;">
-          <i class="devicon-linkedin-plain" style="font-size: 2.5rem;"></i>
+        <a href="https://www.linkedin.com/in/oliver-hill-7143b3110/" id="linkedin-icon" aria-label="LinkedIn" class="contact-icon" target="_blank" rel="noopener noreferrer" style="color: white;">
+          <span style="font-size: 2.5rem;">${icon('linkedin')}</span>
         </a>
       </div>
       <div style="text-align: center;">
-        <a href="https://github.com/popcorns41" id="github-icon" class="contact-icon" target="_blank" rel="noopener noreferrer" style="color: white;">
-          <i class="devicon-github-original" style="font-size: 2.5rem;"></i>
+        <a href="https://github.com/popcorns41" id="github-icon" aria-label="GitHub" class="contact-icon" target="_blank" rel="noopener noreferrer" style="color: white;">
+          <span style="font-size: 2.5rem;">${icon('github')}</span>
         </a>
       </div>
     </div>
@@ -374,6 +389,7 @@ export function contactMeSection(box) {
 }
 
 export function SkillSetList(box) {
+  loadSkillIconsNear(box);
   box.style.overflowY = "auto";
   box.innerHTML = `
     <h1>Skill Sets</h1>
@@ -384,7 +400,7 @@ export function SkillSetList(box) {
         .map(
           lang => `
           <li style="display: flex; align-items: center; margin-bottom: 1rem;">
-            <i class="${lang.icon}" style="font-size: 2rem; color: white; margin-right: 1rem;"></i>
+            <i aria-hidden="true" class="skill-icon ${lang.icon}" style="font-size: 2rem; color: white; margin-right: 1rem;"></i>
             <span style="font-size: 1.1rem;">${lang.name}</span>
           </li>`
         )
@@ -396,7 +412,7 @@ export function SkillSetList(box) {
         .map(
           platform => `
             <li style="display: flex; align-items: center; margin-bottom: 1rem;">
-              <i class="${platform.icon}" style="font-size: 2rem; color: white; margin-right: 1rem;"></i>
+              <i aria-hidden="true" class="skill-icon ${platform.icon}" style="font-size: 2rem; color: white; margin-right: 1rem;"></i>
               <span style="font-size: 1.1rem;">${platform.name}</span>
             </li>
           `
@@ -409,7 +425,7 @@ export function SkillSetList(box) {
         .map(
           item => `
             <li style="display: flex; align-items: center; margin-bottom: 1rem;">
-              <i class="${item.icon}" style="font-size: 2rem; color: white; margin-right: 1rem;"></i>
+              <span class="skill-icon" style="font-size: 2rem; margin-right: 1rem;">${item.icon.startsWith('fa-') ? icon(item.name === 'LiDAR' ? 'signal' : 'robot') : `<i aria-hidden="true" class="${item.icon}"></i>`}</span>
               <span style="font-size: 1.1rem;">${item.name}</span>
             </li>
           `
@@ -428,7 +444,7 @@ export function pdfResumeSection(box) {
   });
 }
 
-export function pdfDocumentSection(box, { url, heading, title, filename }) {
+export function pdfDocumentSection(box, { url, heading, title, filename, onDemand = false }) {
   const pdfURL = `${url}#view=Fit`;
 
   box.classList.add('pdf-box');
@@ -446,7 +462,7 @@ export function pdfDocumentSection(box, { url, heading, title, filename }) {
           type="button"
           aria-label="Download ${heading}"
         >
-          <i class="fa-solid fa-download"></i>
+          ${icon('download')}
         </button>
 
         <div class="tooltip">
@@ -464,6 +480,10 @@ export function pdfDocumentSection(box, { url, heading, title, filename }) {
       "
     />
 
+    <div class="pdf-placeholder">
+      <p>Read the document here, or open it in a new tab.</p>
+      <button class="infoButton pdf-preview-button" type="button">Load PDF preview</button>
+    </div>
     <iframe
       class="resumeFrame"
       data-src="${pdfURL}"
@@ -482,8 +502,18 @@ export function pdfDocumentSection(box, { url, heading, title, filename }) {
   const btn =
     box.querySelector(".downloadPDF");
 
-  if (frame) {
-    deferIframeLoad(frame);
+  const load = () => {
+    if (frame.src) return;
+    frame.src = frame.dataset.src;
+    box.classList.add('pdf-loaded');
+    box.querySelector('.pdf-preview-button').setAttribute('aria-expanded', 'true');
+  };
+  const previewButton = box.querySelector('.pdf-preview-button');
+  previewButton.setAttribute('aria-expanded', 'false');
+  previewButton.addEventListener('click', load, { once: true });
+  // Large documents and mobile previews are explicit opt-ins; no hidden PDF fetch.
+  if (!onDemand && !window.matchMedia('(max-width: 900px)').matches) {
+    deferIframeLoad(box, load);
   }
 
   if (btn) {
@@ -526,40 +556,12 @@ function appendDivider(parent) {
   parent.appendChild(hr);
 }
 
-function deferIframeLoad(frame) {
-  const src = frame.dataset.src;
-
-  if (!src) return;
-
-  /*
-   * Older browser fallback.
-   */
-  if (!("IntersectionObserver" in window)) {
-    frame.src = src;
-    return;
-  }
-
-  const observer =
-    new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-
-        if (!entry.isIntersecting) {
-          return;
-        }
-
-        frame.src = src;
-
-        observer.disconnect();
-      },
-      {
-        /*
-         * Start loading shortly BEFORE
-         * the résumé actually appears.
-         */
-        rootMargin: "700px 0px"
-      }
-    );
-
-  observer.observe(frame);
+function deferIframeLoad(box, load) {
+  if (!('IntersectionObserver' in window)) return load();
+  const observer = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    load();
+    observer.disconnect();
+  }, { rootMargin: '200px 0px' });
+  observer.observe(box);
 }

@@ -3,7 +3,7 @@
    ========================== */
 
 /* Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap');
+
 
 /* Global Reset & Box Sizing */
 * {
@@ -138,4 +138,10 @@ p {
     text-align: center;
     font-size:15px;
   }
+}
+/* Keep text and form controls usable with keyboard, touch and browser zoom. */
+input, textarea { min-width: 0; max-width: 100%; user-select: text; caret-color: auto; }
+:focus-visible { outline: 2px solid #82e8ff; outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

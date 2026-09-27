@@ -37,6 +37,7 @@ export function initInfoSections() {
 
     // Grab the boxes we just created inside this panel
     const leftBox = panel.querySelector(`#infoBoxLeft-${index}`);
+    leftBox.tabIndex = 0;
     const rightBox = panel.querySelector(`#infoBoxRight-${index}`);
 
     // Populate based on index rules

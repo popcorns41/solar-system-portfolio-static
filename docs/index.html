@@ -23,9 +23,9 @@
 
     <title>Solar System Portfolio Static</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon/favicon.ico" />
@@ -34,19 +34,10 @@
     <link rel="manifest" href="/favicon/site.webmanifest" />
 
 
-
-    <meta name="font-display" content="swap">  <script type="module" crossorigin src="/assets/index-C-JarKAC.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DpYRwzBi.css">
+  <script type="module" crossorigin src="/assets/index-D3-zYAQt.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BOe6K-mP.css">
 </head>
 <body>
-
-    <div id="loadingScreen">
-    <div class="loading-content">
-      <div class="loading-orbit"></div>
-
-      <p id="loadingText">loading website</p>
-    </div>
-  </div>
 
     <section id="intro">
         <div class = "intro-tab">
@@ -61,7 +52,7 @@
                 </button>
             </div>
         </div>
-        <div id="solarSystem"><canvas id="threeCanvas"></canvas>
+        <div id="solarSystem"><canvas id="threeCanvas" aria-hidden="true"></canvas>
         </div>
         
     </section>
@@ -69,15 +60,6 @@
     </section>
     
     <section id="overlay">
-        <div id="mobileOverlay">
-            <div class="mobile-message-box">
-                <h2>Heads up!</h2>
-                 <hr style="border: none; border-top: 1px solid #ccc; margin: 1rem;" />
-                <p style="margin: 1rem 0;">🪐 The solar system is best viewed on a desktop or larger screen.</p>
-                <p>For mobile, this website is best experienced on the <b>static page</b>.</p>
-                <button style="color: white;" id="continueAnywayBtn">Load Static Page</button>
-            </div>
-        </div>
         <div id="toast" class="toast">✅ Message sent!</div>
     </section>
     

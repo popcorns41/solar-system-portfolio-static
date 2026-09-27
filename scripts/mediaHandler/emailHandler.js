@@ -1,6 +1,3 @@
-import emailjs from '@emailjs/browser';
-
-emailjs.init("ACoKUgfKR7FJkFXTT");
 
 export function emailHandler(container, live = false) {
   const form = container.querySelector("#contactForm");
@@ -29,6 +26,8 @@ export function emailHandler(container, live = false) {
     }
 
     try {
+      const { default: emailjs } = await import('@emailjs/browser');
+      emailjs.init("ACoKUgfKR7FJkFXTT");
       await emailjs.sendForm("service_3dr8znx", "template_wpa42ci", form);
       showToast("✅ Message sent! I will get back to you soon.");
       form.reset();

@@ -5,8 +5,8 @@
 
 /* Each generated panel fills the viewport */
 #info .info-panel {
-  height: 100vh;
-  min-height: 100vh;
+  min-height: 100svh;
+  height: auto;
   width: 100%;
   display: grid;
   place-items: center;
@@ -18,7 +18,6 @@
 }
 
 .infoSection{
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -44,9 +43,9 @@
 
   /* layout */
   flex: 1 1 45%;
-  min-width: 280px;
+  min-width: 0;
   max-width: 550px;
-  height: 90vh;
+  height: calc(100dvh - 4rem);
 
   /* appearance */
   background: rgba(255, 255, 255, 0.05);
@@ -55,7 +54,7 @@
   color: white;
 
   /* spacing */
-  padding: 3rem;
+  padding: clamp(1.25rem, 3vw, 3rem);
   box-sizing: border-box;
 
   /* positioning */
@@ -192,38 +191,6 @@
   margin-bottom: 0.8rem;
 }
 
-@media (max-width: 700px) {
-  #info .dissertation-panel {
-    height: auto;
-    overflow: visible;
-  }
-
-  .dissertation-panel .infoSection {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-  }
-
-  .dissertation-panel .info-box {
-    flex: none;
-    width: 100%;
-    min-width: 0;
-    padding: 1.5rem;
-  }
-
-  .dissertation-panel .dissertation-summary {
-    height: auto;
-  }
-
-  .dissertation-panel .pdf-box {
-    height: 80vh;
-    min-height: 400px;
-  }
-
-  .dissertation-panel .top-bar h2 {
-    font-size: 1.1rem;
-  }
-}
 
 a {
   color: #2256c6;     /* Light but not pure white */
@@ -249,7 +216,7 @@ a.contact-icon {
   text-align: center;
 }
 
-a.contact-icon:hover i {
+a.contact-icon:hover .ui-icon {
   transform: scale(1.1);
   transition: transform 0.2s, color 0.2s;
 }
@@ -298,7 +265,7 @@ a#github-icon:hover i {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  height: 10vh; /* or auto */
+  min-height: 3rem;
   color: white;
 }
 
@@ -341,4 +308,39 @@ a#github-icon:hover i {
 .toast.show {
   visibility: visible;
   opacity: 1;
+}
+
+/* Shared responsive cards; keep prose readable and give documents more space. */
+.infoSection { max-width: 1440px; margin-inline: auto; }
+.infoBoxRight { max-width: 760px; }
+.info-box { overflow-wrap: anywhere; }
+.info-box img { max-width: 100%; height: auto; }
+.info-box .media-video { width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; }
+.info-box .media-video--portrait { aspect-ratio: 9 / 16; max-height: 70dvh; }
+.info-box .media-video--social { aspect-ratio: 476 / 600; }
+.infoButton { width: auto; max-width: 100%; min-height: 44px; }
+.download-button { min-width: 44px; min-height: 44px; }
+.top-bar h2 { font-size: clamp(1rem, 1.8vw, 1.5rem); }
+.pdf-box .resumeFrame { width: 100%; }
+.pdf-placeholder { flex: 1; display: grid; place-content: center; gap: 1rem; text-align: center; }
+.pdf-placeholder p { color: #c4c4c4; }
+.pdf-box:not(.pdf-loaded) .resumeFrame { display: none; }
+.pdf-box.pdf-loaded .pdf-placeholder { display: none; }
+.pdf-box .pdf-open-link { min-height: 44px; display: inline-flex; align-items: center; }
+.ui-icon { display: inline-block; width: 1em; height: 1em; vertical-align: -0.125em; }
+.skill-icon { flex-shrink: 0; width: 1.25em; text-align: center; }
+.tooltip-container:focus-within .tooltip { opacity: 1; }
+
+@media (max-width: 900px), (max-height: 600px) {
+  #info .info-panel { height: auto; overflow: visible; }
+  .infoSection { padding: clamp(1rem, 3vw, 2rem); gap: 1.25rem; }
+  .info-box { height: auto; overflow-y: visible !important; }
+  .pdf-box { min-height: 300px; }
+  .pdf-box.pdf-loaded { height: max(400px, 80dvh); }
+  .pdf-box .resumeFrame { min-height: 0; }
+}
+@media (max-width: 900px) {
+  .infoSection { flex-direction: column; align-items: center; }
+  .info-box { flex: none; width: 100%; max-width: 700px; }
+  .info-box h1 { font-size: clamp(1.4rem, 4vw, 2rem); }
 }

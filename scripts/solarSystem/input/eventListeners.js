@@ -1,13 +1,15 @@
-import {handleResize} from '/scripts/solarSystem/input/eventHandler.js';
+import { handleResize } from './eventHandler.js';
 
-export function initEventListeners({canvas, renderer, camera, fxaaPass,composer}){
-    window.addEventListener('orientationchange',  handleResize({canvas,renderer,camera,fxaaPass,composer}));
-
-    const observer = new ResizeObserver(() => {
-        console.log('Element resized!');
-        // Your resize logic (camera.aspect, renderer.setSize, etc.)
-        handleResize({canvas,renderer,camera,fxaaPass,composer});
-    });
-
-    observer.observe(document.getElementById('threeCanvas'));
+export function initEventListeners(context) {
+  const resize = () => handleResize(context);
+  const observer = new ResizeObserver(resize);
+  observer.observe(context.canvas.parentElement);
+  window.addEventListener('resize', resize);
+  window.addEventListener('orientationchange', resize);
+  resize();
+  return () => {
+    observer.disconnect();
+    window.removeEventListener('resize', resize);
+    window.removeEventListener('orientationchange', resize);
+  };
 }
