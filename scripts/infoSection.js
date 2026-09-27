@@ -1,5 +1,6 @@
 import {planetData} from './mediaHandler/planetInfoData.js'
 import * as HANDLER from './mediaHandler/mediaDisplayHandler.js'
+import { createDissertationSection } from './mediaHandler/dissertationSection.js';
 
 
 export function initInfoSections() {
@@ -28,6 +29,11 @@ export function initInfoSections() {
     `;
 
     frag.appendChild(panel);
+
+    // Feature the dissertation immediately after About me, keeping existing anchors stable.
+    if (index === planetData.length - 1) {
+      frag.appendChild(createDissertationSection());
+    }
 
     // Grab the boxes we just created inside this panel
     const leftBox = panel.querySelector(`#infoBoxLeft-${index}`);

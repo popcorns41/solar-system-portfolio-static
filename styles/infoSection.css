@@ -91,6 +91,140 @@
   opacity: 1;
 }
 
+/* Shared PDF layout keeps both document viewers inside their bordered cards. */
+.pdf-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-box .top-bar {
+  flex-shrink: 0;
+  gap: 0.75rem;
+  padding: 0;
+}
+
+.pdf-box .resumeFrame {
+  flex: 1;
+  min-height: 0;
+}
+
+.pdf-box .tooltip {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.pdf-box .pdf-open-link {
+  flex-shrink: 0;
+  color: #82e8ff;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+  align-self: flex-start;
+}
+
+.dissertation-summary hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1rem 0;
+}
+
+.dissertation-summary .dissertation-meta,
+.dissertation-summary .dissertation-note {
+  color: #c4c4c4;
+  font-size: 0.8rem;
+}
+
+.dissertation-summary .dissertation-title {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+}
+
+.dissertation-grade {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: rgba(0, 209, 255, 0.08);
+  border: 1px solid #00d1ff;
+  border-radius: 10px;
+}
+
+.dissertation-grade strong {
+  color: #82e8ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+}
+
+.dissertation-grade strong span {
+  font-size: 0.9rem;
+  margin-left: 0.25rem;
+}
+
+.dissertation-summary h3 {
+  font-size: 1rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.dissertation-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.dissertation-stack li {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid #666;
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.dissertation-results {
+  padding-left: 1.2rem;
+  line-height: 1.6;
+}
+
+.dissertation-results li {
+  margin-bottom: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  #info .dissertation-panel {
+    height: auto;
+    overflow: visible;
+  }
+
+  .dissertation-panel .infoSection {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .dissertation-panel .info-box {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+    padding: 1.5rem;
+  }
+
+  .dissertation-panel .dissertation-summary {
+    height: auto;
+  }
+
+  .dissertation-panel .pdf-box {
+    height: 80vh;
+    min-height: 400px;
+  }
+
+  .dissertation-panel .top-bar h2 {
+    font-size: 1.1rem;
+  }
+}
+
 a {
   color: #2256c6;     /* Light but not pure white */
   text-decoration: none;
@@ -208,4 +342,3 @@ a#github-icon:hover i {
   visibility: visible;
   opacity: 1;
 }
-

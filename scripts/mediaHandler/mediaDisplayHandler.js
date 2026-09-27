@@ -420,21 +420,31 @@ export function SkillSetList(box) {
 }
 
 export function pdfResumeSection(box) {
-  const pdfURL =
-    "./pdfs/ohResume.pdf#view=Fit";
+  pdfDocumentSection(box, {
+    url: './pdfs/ohResume.pdf',
+    heading: 'PDF Resume',
+    title: 'Oliver Hill Resume',
+    filename: 'oliverHillResume.pdf',
+  });
+}
 
+export function pdfDocumentSection(box, { url, heading, title, filename }) {
+  const pdfURL = `${url}#view=Fit`;
+
+  box.classList.add('pdf-box');
   box.style.overflowY = "hidden";
 
   box.innerHTML = `
     <div class="top-bar">
 
-      <h2>PDF Resume</h2>
+      <h2>${heading}</h2>
 
       <div class="tooltip-container">
 
         <button
           class="downloadPDF download-button"
           type="button"
+          aria-label="Download ${heading}"
         >
           <i class="fa-solid fa-download"></i>
         </button>
@@ -460,9 +470,10 @@ export function pdfResumeSection(box) {
       width="100%"
       height="100%"
       style="border: none;"
-      title="Oliver Hill Resume"
+      title="${title}"
     >
     </iframe>
+    <a class="pdf-open-link" href="${url}" target="_blank" rel="noopener noreferrer">Open PDF in a new tab</a>
   `;
 
   const frame =
@@ -478,12 +489,12 @@ export function pdfResumeSection(box) {
   if (btn) {
     btn.addEventListener(
       "click",
-      () => downloadPDF(pdfURL)
+      () => downloadPDF(pdfURL, filename)
     );
   }
 }
 
-function downloadPDF(pdfURL) {
+function downloadPDF(pdfURL, filename) {
   const downloadURL =
     pdfURL.split("#")[0];
 
@@ -493,7 +504,7 @@ function downloadPDF(pdfURL) {
   link.href = downloadURL;
 
   link.download =
-    "oliverHillResume.pdf";
+    filename;
 
   document.body.appendChild(link);
 
