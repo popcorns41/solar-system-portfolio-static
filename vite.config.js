@@ -1,4 +1,3 @@
-import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -12,13 +11,6 @@ export default defineConfig({
       "SANDBOX_URL" in process.env ||
       "CODESANDBOX_HOST" in process.env
     )
-  },
-
-  resolve: {
-    alias: {
-      "@model": path.resolve(__dirname, "modelLoader"),
-      "@solar": path.resolve(__dirname, "solarSystem"),
-    }
   },
 
   build: {

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderLoop } from '../scripts/solarSystem/animation/animate.js';
-import { handleResize } from '../scripts/solarSystem/input/eventHandler.js';
+import { renderLoop } from '../src/intro/render-loop.js';
+import { handleResize } from '../src/intro/resize.js';
 
 test('rendering pauses offscreen, in hidden tabs and for reduced motion, then disposes', () => {
   const originals = Object.fromEntries(['window', 'document', 'IntersectionObserver', 'requestAnimationFrame', 'cancelAnimationFrame'].map(key => [key, globalThis[key]]));

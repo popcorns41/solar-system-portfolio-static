@@ -1,0 +1,10 @@
+/* Media card presentation; JavaScript only creates the elements. */
+.media-item { margin-bottom: 1.5rem; }
+.media-item:not(:last-child) { border-bottom: 1px solid #ccc; padding-bottom: 0.5rem; }
+.media-item img { width: 100%; height: auto; border-radius: 10px; }
+.media-item figcaption { font-size: 0.9rem; color: white; line-height: 1.5; margin: 0.5rem 0; }
+.media-image figcaption { margin: 2rem 0; }
+.media-open-link { display: inline-block; margin-bottom: 0.75rem; }
+.media-video { width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; border-radius: 10px; }
+.media-video--portrait { aspect-ratio: 9 / 16; max-height: 70dvh; }
+.media-video--social { aspect-ratio: 476 / 600; }

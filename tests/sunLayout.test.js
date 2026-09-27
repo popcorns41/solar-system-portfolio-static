@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { SUN_SCENE, projectedSunBounds } from '../scripts/solarSystem/sunLayout.js';
+import { SUN_SCENE, projectedSunBounds } from '../src/intro/sun-layout.js';
 
 test('fallback silhouette matches the projected Three.js sphere across viewport sizes', () => {
   for (const [width, height] of [[390, 844], [1366, 768], [1920, 1080], [844, 390]]) {
