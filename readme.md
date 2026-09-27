@@ -62,6 +62,8 @@ npm run preview   # Serve the production build locally
 
 `?dev` retains the intro's development mode. Public assets use the existing root base URL configured in `vite.config.js`.
 
+`?sun=retro` previews the mobile sun on any screen. Its 320 triangular faces, colour palette and dithering live in `src/intro/low-poly-sun.js`; the halo and crossfade are in `src/styles/intro.css`. It uses a 256px canvas and paints at up to 20fps, with no texture download or WebGL dependency.
+
 ## Project map
 
 ```text
@@ -99,7 +101,7 @@ The script needs Pillow. It preserves originals, writes responsive WebP variants
 
 - Cards stack at 900px; short screens use normal page scrolling. Desktop retains the two-card layout.
 - Content is available before the optional 3D code downloads. Small screens, reduced motion, data-saving connections and direct section links skip WebGL.
-- The CSS sun matches the 3D silhouette and crossfades after the texture is rendered. Offscreen/hidden-tab rendering pauses; entering the portfolio disposes of resources.
+- The rotating, low-poly sun uses the same projected bounds as the detailed 3D sun and crossfades after the texture is rendered. It stays static for reduced motion. Both renderers pause offscreen/in hidden tabs; entering the portfolio disposes of resources. The low-poly renderer also stops when WebGL takes over.
 - The dissertation loads only on request. The résumé preloads near its card on desktop; mobile PDFs are opt-in.
 - Images reserve their dimensions, load lazily and use responsive WebP variants. Skill icons and EmailJS are deferred.
 - Contact tests inject a fake sender and never send mail. Test a real submission only when explicitly intended.

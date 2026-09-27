@@ -39,7 +39,10 @@ export function initSolarSystem(isDev = false) {
     // Upload and draw the loaded texture before exposing the canvas.
     renderer.render(scene, context.camera);
     revealFrame = requestAnimationFrame(() => {
-      if (!disposed && intro.isConnected) intro.classList.add('has-webgl');
+      if (!disposed && intro.isConnected) {
+        intro.classList.add('has-webgl');
+        intro.dispatchEvent(new Event('sunEnhanced'));
+      }
     });
   }).catch(() => {
     // Keep the fallback fully visible if the texture cannot be downloaded.

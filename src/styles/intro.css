@@ -29,7 +29,7 @@
 #instruction { margin-top: 1.25rem; }
 #enterSystem { margin-top: clamp(2rem, 7vh, 5rem); min-height: 48px; }
 
-/* Instant, zero-download fallback while WebGL loads or is unavailable. */
+/* Last-resort background; the faceted canvas paints synchronously at startup. */
 #intro::before {
   content: '';
   position: absolute;
@@ -45,7 +45,26 @@
   transition: opacity 900ms ease-in-out;
 }
 #intro.has-webgl::before { opacity: 0; }
+#intro.has-low-poly::before {
+  background: radial-gradient(ellipse, #ff8f2430 30%, #ff8f2418 60%, transparent 72%);
+  box-shadow: none;
+  transform: translateX(-50%) scale(1.3);
+}
+#lowPolySun {
+  position: absolute;
+  top: var(--sun-top, 5svh);
+  left: 50%;
+  width: var(--sun-width, 39svh);
+  height: var(--sun-height, 40svh);
+  transform: translateX(-50%);
+  image-rendering: pixelated;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms ease-in-out;
+}
+#intro.has-low-poly #lowPolySun { opacity: 1; }
+#intro.has-webgl #lowPolySun { opacity: 0; }
 @media (max-height: 500px) and (orientation: landscape) {
-  .intro-tab { padding-top: 34svh; }
+  .intro-tab { padding-top: 48svh; padding-bottom: 1.5rem; }
   #enterSystem { margin-top: 1rem; }
 }

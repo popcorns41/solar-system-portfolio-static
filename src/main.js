@@ -1,15 +1,21 @@
 import './styles/index.css';
 import { matchFallbackSun } from './intro/sun-layout.js';
+import { initLowPolySun } from './intro/low-poly-sun.js';
 import { initBoot } from './app/bootstrap.js';
 
-const isDevMode = new URLSearchParams(window.location.search).has('dev');
+const parameters = new URLSearchParams(window.location.search);
+const isDevMode = parameters.has('dev');
+const previewRetroSun = parameters.get('sun') === 'retro';
 const intro = initBoot(isDevMode);
-if (intro && !isDevMode) matchFallbackSun(intro);
+if (intro && !isDevMode) {
+  matchFallbackSun(intro);
+  initLowPolySun(intro);
+}
 
 // Content and controls are usable before downloading any WebGL code.
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const compact = window.matchMedia('(max-width: 900px)');
-if (intro && (isDevMode || (!motion.matches && !compact.matches && !navigator.connection?.saveData))) {
+if (intro && (isDevMode || (!previewRetroSun && !motion.matches && !compact.matches && !navigator.connection?.saveData))) {
   const enhance = async () => {
     if (!intro.isConnected) return;
     if (document.hidden) {
@@ -20,7 +26,7 @@ if (intro && (isDevMode || (!motion.matches && !compact.matches && !navigator.co
       const { initSolarSystem } = await import('./intro/index.js');
       if (intro.isConnected) initSolarSystem(isDevMode);
     } catch (error) {
-      // The CSS sun and fully functional portfolio remain available.
+      // The low-poly sun and fully functional portfolio remain available.
       console.warn('Using the static intro:', error);
     }
   };
