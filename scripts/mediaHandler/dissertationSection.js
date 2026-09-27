@@ -1,3 +1,4 @@
+import { responsiveParagraph } from './responsiveCopy.js';
 import { pdfDocumentSection } from './mediaDisplayHandler.js';
 
 export function createDissertationSection() {
@@ -18,7 +19,7 @@ export function createDissertationSection() {
         </div>
 
         <h3>Abstract</h3>
-        <p>I developed a low-cost, dual-arm teleoperation platform to investigate how robotic systems can suppress involuntary tremor while preserving intentional movement. Built with ROS2 and modified Interbotix PincherX manipulators, the system combines custom 3D-printed controllers, synthetic tremor injection and modular low-pass and Kalman filters. I evaluated both approaches using tremor-band attenuation, command latency and a 14-participant user study. The findings show that stronger suppression alone does not guarantee better control: balancing tremor reduction with responsiveness is essential to usable assistive teleoperation.</p>
+        ${responsiveParagraph("I developed a low-cost, dual-arm teleoperation platform to investigate how robotic systems can suppress involuntary tremor while preserving intentional movement. Built with ROS2 and modified Interbotix PincherX manipulators, the system combines custom 3D-printed controllers, synthetic tremor injection and modular low-pass and Kalman filters. I evaluated both approaches using tremor-band attenuation, command latency and a 14-participant user study. The findings show that stronger suppression alone does not guarantee better control: balancing tremor reduction with responsiveness is essential to usable assistive teleoperation.", "I built a dual-arm robotic platform to study tremor suppression using ROS2, custom controllers and low-pass and Kalman filters. Testing, including a 14-person user study, showed that responsive control matters as much as tremor reduction.")}
 
         <h3>Key technical stack</h3>
         <ul class="dissertation-stack" aria-label="Technical stack">

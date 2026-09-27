@@ -344,3 +344,12 @@ a#github-icon:hover i {
   .info-box { flex: none; width: 100%; max-width: 700px; }
   .info-box h1 { font-size: clamp(1.4rem, 4vw, 2rem); }
 }
+
+/* Short summaries follow the same breakpoint as the stacked mobile cards. */
+.copy-mobile { display: none; }
+.copy-mobile + .copy-desktop { margin-top: 0.75rem; }
+@media (max-width: 900px) {
+  .copy-desktop { display: none; }
+  .copy-mobile { display: block; }
+  .copy-mobile + .copy-desktop + .copy-mobile { margin-top: 0.75rem; }
+}

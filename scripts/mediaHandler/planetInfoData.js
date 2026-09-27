@@ -13,6 +13,12 @@ export const planetData = [
   },
   {
     title: "Experience",
+    mobileParagraphs: [
+      "During the eight-week <a href='https://www.iomdfenterprise.im/enterprise-support/all-schemes/step-programme/' target='_blank' rel='noopener noreferrer'>2023 STEP Programme</a>, I interned at Salex LTD and won the <b>Best Presentation award</b>.",
+      "<a href='https://www.salexltd.com/' target='_blank' rel='noopener noreferrer'>Salex LTD</a> uses FUATA to manage shipments across its West African commodity trading operations, replacing spreadsheets and phone calls.",
+      "I trained staff, designed module wireframes and automated file workflows with Microsoft Power Automate.",
+      "Working with developer meetings, tickets and sprints gave me practical experience in software maintenance."
+    ],
     subtitles: ["Step Programme Overview","Salex LTD","",""],
     paragraphs: [
       "The Step Programme (<a href='https://www.iomdfenterprise.im/enterprise-support/all-schemes/step-programme/' target='_blank'>Listed here</a>) is an eight-week paid summer placement run by the Isle of Man Department for Enterprise for university students, typically in their second or penultimate year. Students work on project-based tasks with local host companies, gaining professional experience and earning a Living Wage. The programme concludes with a report and presentation to a judging panel, with awards for the best projects. I was placed at Salex LTD in Castletown, Isle of Man, and received the award for best presentation (see Image 2).",
@@ -45,6 +51,10 @@ export const planetData = [
   },
   {
     title: "Robotics",
+    mobileParagraphs: [
+      "At Edinburgh, our team built <b>Pool Pal</b>, a robot that plays pool from shots chosen in a web app. I designed, tested and assembled its gantry and striking mechanism.",
+      "We won <b>Best Technical Skills Project</b> and placed <b>second out of 16 teams</b>. Collaborating across mechanical, electrical and software systems strengthened my teamwork and problem-solving."
+    ],
     subtitles: ["Overview","Reflection"],
     paragraphs: [
       "Working with the University of Edinburgh's maker space and a strong team of peers, we built a robot that plays pool on a half-scale table. The semester-long project combined several engineering disciplines. We divided the robot's systems into key modules: electrical, robotic, computer vision and camera (see Image 2), structural support, and a mobile web app for user input. In a typical use case, the web app shows a real-time view of the pool balls and prompts the user to take a shot. The robot, which we called Pool Pal, then attempts to replicate that shot. At the end of the project, our robot could successfully pot pool balls at an impressive accuracy (see Video 1). I was responsible for designing, testing, and assembling the robotic system, which consisted of two main components: the gantry and the striking mechanism.",
@@ -64,6 +74,10 @@ export const planetData = [
   },
   {
     title: "Extracurricular",
+    mobileParagraphs: [
+      "Playing and coaching with Edinburgh University Basketball Club has strengthened my leadership, communication and ability to adapt under pressure.",
+      "Three years at Ka Pao Edinburgh, across front-of-house and bartending, developed my teamwork, multitasking and composure during busy shifts."
+    ],
     subtitles: ["Basketball","Hospitality"],
     paragraphs: [
       "Outside of tech, I'm both a player and coach with the Edinburgh University Basketball Club. Coaching has strengthened my leadership, communication, and strategic planning. Skills that translate directly to computer science, especially when working in teams, adapting under pressure, and staying disciplined through intensive training and competition.",
@@ -76,6 +90,10 @@ export const planetData = [
   },
   {
     title: "Childhood",
+    mobileParagraphs: [
+      "From 2015 to 2018, I competed in robotics across Thailand, including <a href='https://wro-association.org/' target='_blank' rel='noopener noreferrer'>WRO</a> challenges. Our regional prizes sparked a lasting interest in building and problem-solving.",
+      "I progressed from LEGO Mindstorms block programming to JavaScript-controlled robots, which led me into web development."
+    ],
     subtitles: ["Robotic competitions","Introduction to programming"],
     paragraphs: [
       "Between 2015 and 2018, I took part in regional robotics competitions across Thailand, including the World Robotics Olympiad (<a href='https://wro-association.org/' target='_blank'>WRO</a>), which brings together students to solve LEGO Mindstorm challenges. The prompts ranged from building home appliance robots to tackling unpredictable terrain, pushing us to think creatively under pressure. These early years introduced me to the world of robotics: programming sensors, engineering moving parts, and the basics of robotic localisation. Our team won several regional prizes, and while we didn’t quite reach the international stage, the experience sparked a lasting passion for building and problem-solving.",
@@ -88,9 +106,13 @@ export const planetData = [
   },
   {
     title: "About me",
+    mobileParagraphs: [
+      "I'm Oliver, an <b>Associate Software Engineer at SIE</b>, with a Computer Science background from the University of Edinburgh. My interests span robotics, software systems and collaborative problem-solving.",
+      "Built with <b>Vite and Three.js</b>, this portfolio combines my web development skills with an interest in 3D experiences. Explore the <a href='https://github.com/popcorns41/solar-system-portfolio' target='_blank' rel='noopener noreferrer'>project on GitHub</a>."
+    ],
     subtitles: ["Who am I?","What is this website?"],
     paragraphs: [
-"Hello, my name is Oliver! I am a fourth-year student of BEng Computer Science at the University of Edinburgh. With over eight years of experience in IT, both personally and academically, I'm eager to apply my skills in a real-world environment, learn from experienced engineers, and contribute to impactful projects. I'm a fast learner, naturally collaborative, and focused on delivering value wherever I can. My main interests lie in robotics and software systems design and development, areas where I've earned recognition and awards (see Image 1 and Image 2).",
+"Hello, my name is Oliver! I'm an Associate Software Engineer at SIE, with a background in Computer Science at the University of Edinburgh. My journey spans over eight years of personal and academic experience in IT, from early robotics competitions to designing and building software systems. I'm a fast learner who enjoys collaborating with others, learning from fellow engineers and contributing to useful projects.",
 "This personal portfolio website was a personal project to reimagine site navigation through a fully interactive 3D solar system. Each planet acts as a portal to different sections of the portfolio. Built with Vite and Three.js, the project aims to showcase my web development skills, combined with a new area of technology for me in 3D modelling to create a visually engaging and unconventional user experience. The project showcases proficiency in JavaScript, modular design, event-driven interactions, and creative UI/UX thinking. I invite you to explore the GitHub repository for this project:<a href='https://github.com/popcorns41/solar-system-portfolio'target='_blank' rel='noopener noreferrer'>here</a>to browse this project's inspiration and current development stage."
     ],
     imageURLs: ["./info_images/stepHandShake.jpg", "./info_images/poolPalGroup.jpg"],

@@ -1,3 +1,4 @@
+import { responsiveParagraph } from './responsiveCopy.js';
 import { imageManifest } from './imageManifest.js';
 import { icon, loadSkillIconsNear } from './uiIcons.js';
 import { languages,platforms,roboticsItems } from './iconDirectories';
@@ -10,8 +11,8 @@ export function planetDataLeftBox(info,leftBox){
     <h1>${info.title}</h1>
     <hr style="border: none; border-top: 1px solid #ccc; margin-top: 1rem;" />
     ${info.paragraphs.map((text, index) => `
-      <h3 style="padding: 1rem 0 0.5rem 0;">${info.subtitles[index]}</h3>
-      <p>${text}</p>
+      ${info.subtitles[index] ? `<h3 style="padding: 1rem 0 0.5rem 0;">${info.subtitles[index]}</h3>` : ''}
+      ${responsiveParagraph(text, info.mobileParagraphs?.[index])}
     `).join('')}
   `;
 }
